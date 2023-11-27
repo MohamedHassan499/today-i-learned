@@ -38,7 +38,7 @@ Notes: Clusters => Nodes => Pods => Containers. And K8s Control plane manages al
 Q8: How to launch Pods?
     1. kubectl run <pod_name> --image=<docker_image_name>:<docker_image_tag> <...some_additional_flags_for_container>
         1.1 kubectl run nginx-pod --image=nginx:latest --port=80
-    2. yaml file (Object definition file):
+    2. yaml file (Object definition file) && run this command (kubectl create -f pod-definition.yml) :
     ```
     apiVersion: v1
     kind: Pod
@@ -50,5 +50,4 @@ Q8: How to launch Pods?
         image: nginx
         ports:
           - containerPort: 80
-
-    ```
+    ``

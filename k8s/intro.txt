@@ -1,0 +1,54 @@
+Q1: What is kubernetes (k8s)?
+A1: Kubernetes is an open-source container orchestration platform. It helps you automate the deployment, 
+scaling, and management of containerized applications.
+
+Q2: Which container runtimes can be used?
+A2: Let it be docker, podman, ... etc.
+
+Q3: Main components?
+A3: It relies heaviley on control plane which has the main components for our orchestration:
+  1. etcd: Distributed key-value storage which stores information for all clusters alongside with its nodes (Let it be master or worker nodes)
+  2. API: Frontend for dealing with k8s
+  3. container runtime: docker by default
+  4. Scheduler: Distributes workload on containers across muliple nodes
+  5. Controller: Noticing and responding when nodes goes down/up
+  6. Kubelet: Agent running on each nodes
+
+Q4: Different types of nodes:
+A4: 
+    1. Master nodes (Boss):
+        - Managing worker nodes (Employees) and Distributes load between them
+        - No company without employees and viceversa
+        - Has kube-apiserver, while workers has kubelet
+        - Has controller and scheduler
+
+Q5: What is kubectl?
+A: CLI to manage clusters (CRUDs on nodes and pods)
+
+Q6: What if master node goes down?
+A6: Whole cluster goes down, its more concise to have replicas for the master nodes
+
+Q7: Can a pod have only one container?
+A7: Not of the same type:
+    - a pod can have a verity of containers (i.e API container alongside with helpers containers for it)
+    - If you want to have another API container for scalability, then another node containing that container in a new pod is the solution
+
+Notes: Clusters => Nodes => Pods => Containers. And K8s Control plane manages all clusters and the master nodes are the MITM 
+
+Q8: How to launch Pods?
+    1. kubectl run <pod_name> --image=<docker_image_name>:<docker_image_tag> <...some_additional_flags_for_container>
+        1.1 kubectl run nginx-pod --image=nginx:latest --port=80
+    2. yaml file (Object definition file):
+    ```
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: my-pod
+    spec:
+      containers:
+        - name: my-container
+        image: nginx
+        ports:
+          - containerPort: 80
+
+    ```
